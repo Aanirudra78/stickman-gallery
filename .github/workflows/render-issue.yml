@@ -1,0 +1,78 @@
+name: render-from-issue
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  render:
+    # only the owner's render requests; title must start with [render]
+    if: >-
+      github.actor == 'Aanirudra78' &&
+      startsWith(github.event.issue.title, '[render]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: pipeline/package-lock.json
+
+      - name: Install ffmpeg + fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-core
+
+      - name: Install dependencies
+        run: npm ci --prefix pipeline
+
+      - name: Parse issue into render request
+        id: req
+        run: node .github/parse-issue.mjs
+
+      - name: Render video
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TOPIC: ${{ steps.req.outputs.topic }}
+          SCRIPT: ${{ steps.req.outputs.script }}
+          HINDI_FONT: /usr/share/fonts/truetype/noto/NotoSansDevanagari-Regular.ttf
+        run: |
+          node pipeline/autovideo.mjs \
+            --style "${{ steps.req.outputs.style }}" \
+            --voice "${{ steps.req.outputs.voice }}" \
+            --seconds "${{ steps.req.outputs.seconds }}"
+
+      - name: Publish to website + manifest
+        id: publish
+        env:
+          RENDER_STYLE: ${{ steps.req.outputs.style }}
+          RENDER_VOICE: ${{ steps.req.outputs.voice }}
+          RENDER_TOPIC: ${{ steps.req.outputs.topic }}
+          RENDER_SCRIPT: ${{ steps.req.outputs.script }}
+        run: |
+          if [ -z "$RENDER_TOPIC" ]; then RENDER_TOPIC="$(echo "$RENDER_SCRIPT" | head -c 70)"; fi
+          node .github/publish-render.mjs
+
+      - name: Commit renders to the site
+        run: |
+          git config user.name "render-bot"
+          git config user.email "Aanirudra78@users.noreply.github.com"
+          git add renders
+          if git diff --cached --quiet; then echo "nothing to commit"; exit 0; fi
+          git commit -m "render: ${{ steps.req.outputs.style }} video from issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Comment on the issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --repo Aanirudra78/stickman-gallery \
+            --body "✅ **Your video is ready!** $(cat render-comment.md)"

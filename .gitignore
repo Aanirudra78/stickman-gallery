@@ -1,0 +1,16 @@
+# pipeline (generated per-run media)
+pipeline/node_modules/
+pipeline/run-*/
+pipeline/output-video/
+pipeline/styles/*/output/
+pipeline/styles/*/frames-*/
+pipeline/b5-frames/
+pipeline/b5-delivery/
+pipeline/output/
+*.wav
+*.request.json
+!pipeline/quiet-room.wav
+
+# OS
+Thumbs.db
+.DS_Store

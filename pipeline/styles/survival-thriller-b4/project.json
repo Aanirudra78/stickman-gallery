@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "style": "B4",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0,
+    "tail": 0,
+    "name": "Gemini Bodi",
+    "id": "gemini-3.8-flash-tts/Bodi",
+    "user_override": "User's standing free-only constraint (no billing) rules out the ai33/ElevenLabs Brian voice; free Gemini TTS voice Bodi chosen instead, matching the Dispatch original film's Gemini-voice precedent. Recorded in the 2026-11-12 chat session."
+  },
+  "captions": [
+    {
+      "start": 0.53,
+      "end": 2.85,
+      "text": "This is the survival thriller style."
+    },
+    {
+      "start": 4.7700000000000005,
+      "end": 6.91,
+      "text": "The tower across the street went dark."
+    },
+    {
+      "start": 7.630000000000001,
+      "end": 10.1,
+      "text": "But one window is still watching."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 3,
+      "layers": [
+        {
+          "id": "hook-before",
+          "type": "image",
+          "path": "art/opening-before.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "id": "hook-after",
+          "type": "image",
+          "path": "art/opening-after.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720,
+          "from": 1.05,
+          "keys": [
+            {
+              "t": 1.05,
+              "alpha": 0
+            },
+            {
+              "t": 1.35,
+              "alpha": 1
+            }
+          ]
+        },
+        {
+          "id": "hook-shadow",
+          "type": "shadow",
+          "x": 0,
+          "y": 0,
+          "w": 760,
+          "h": 720
+        },
+        {
+          "id": "hook-setup",
+          "type": "text",
+          "b4Hook": "setup",
+          "text": "THE TOWER IS",
+          "x": 60,
+          "y": 144,
+          "w": 550,
+          "size": 62,
+          "bold": true,
+          "color": "#fff3df"
+        },
+        {
+          "id": "hook-payoff",
+          "type": "text",
+          "b4Hook": "payoff",
+          "text": "DARK.",
+          "x": 60,
+          "y": 324,
+          "w": 550,
+          "size": 96,
+          "bold": true,
+          "color": "#ee695b",
+          "from": 0.65,
+          "pivotX": 275,
+          "pivotY": 110.39999999999999,
+          "keys": [
+            {
+              "t": 0.65,
+              "scaleX": 1.035,
+              "scaleY": 1.035
+            },
+            {
+              "t": 0.8500000000000001,
+              "scaleX": 1,
+              "scaleY": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3,
+      "end": 6,
+      "layers": [
+        {
+          "type": "image",
+          "path": "art/street-up.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        }
+      ]
+    },
+    {
+      "start": 6,
+      "end": 9,
+      "layers": [
+        {
+          "type": "image",
+          "path": "art/rooftop-radio.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        }
+      ]
+    },
+    {
+      "start": 9,
+      "end": 10.12,
+      "layers": [
+        {
+          "type": "image",
+          "path": "art/window-closeup.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 1.05,
+      "kind": "tap",
+      "gain": 0.05
+    },
+    {
+      "time": 3.45,
+      "kind": "tap",
+      "gain": 0.04
+    },
+    {
+      "time": 9.25,
+      "kind": "pop",
+      "gain": 0.035
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 10.12,
+      "gain": 0.045,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ],
+  "dialogue": [],
+  "audio_cuts": [],
+  "opening": {
+    "version": 1,
+    "preset": "b4-hook-v1",
+    "shadow": "hook-shadow",
+    "setup": "hook-setup",
+    "payoff": "hook-payoff",
+    "picture": {
+      "before": "hook-before",
+      "after": "hook-after",
+      "meaning": "One dead window on the dark tower warms up with light as a black watcher silhouette appears inside it - the threatening relationship becomes visible while the hook asks why.",
+      "region": {
+        "x": 780,
+        "y": 160,
+        "w": 360,
+        "h": 300
+      }
+    }
+  }
+}

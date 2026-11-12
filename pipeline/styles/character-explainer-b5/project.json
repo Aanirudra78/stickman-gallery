@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "style": "B5",
+  "renderer": "character-explainer-code-v1",
+  "stage": "approved sample scaffold; reauthor for a new story",
+  "reference": "approved-reference.mp4",
+  "entry": "scene/renderer.cjs"
+}

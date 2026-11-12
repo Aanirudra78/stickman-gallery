@@ -1,0 +1,99 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.38,
+      "end": 0.52
+    },
+    {
+      "word": "is",
+      "start": 0.52,
+      "end": 0.78
+    },
+    {
+      "word": "the",
+      "start": 0.78,
+      "end": 1.44
+    },
+    {
+      "word": "survival",
+      "start": 1.44,
+      "end": 1.8
+    },
+    {
+      "word": "thriller",
+      "start": 1.8,
+      "end": 2.3
+    },
+    {
+      "word": "style.",
+      "start": 2.3,
+      "end": 2.7
+    },
+    {
+      "word": "The",
+      "start": 4.62,
+      "end": 4.96
+    },
+    {
+      "word": "tower",
+      "start": 4.96,
+      "end": 5.34
+    },
+    {
+      "word": "across",
+      "start": 5.34,
+      "end": 5.58
+    },
+    {
+      "word": "the",
+      "start": 5.58,
+      "end": 5.82
+    },
+    {
+      "word": "street",
+      "start": 5.82,
+      "end": 6.06
+    },
+    {
+      "word": "went",
+      "start": 6.06,
+      "end": 6.36
+    },
+    {
+      "word": "dark,",
+      "start": 6.36,
+      "end": 6.76
+    },
+    {
+      "word": "but",
+      "start": 7.48,
+      "end": 7.84
+    },
+    {
+      "word": "one",
+      "start": 7.84,
+      "end": 8.24
+    },
+    {
+      "word": "window",
+      "start": 8.24,
+      "end": 8.98
+    },
+    {
+      "word": "is",
+      "start": 8.98,
+      "end": 9.26
+    },
+    {
+      "word": "still",
+      "start": 9.26,
+      "end": 9.64
+    },
+    {
+      "word": "watching.",
+      "start": 9.64,
+      "end": 10
+    }
+  ]
+}

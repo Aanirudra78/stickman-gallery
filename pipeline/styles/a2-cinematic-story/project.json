@@ -1,0 +1,246 @@
+{
+  "version": 1,
+  "style": "B2",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0.15,
+    "tail": 0.35
+  },
+  "captions": [
+    {
+      "start": 0.59,
+      "end": 3.23,
+      "text": "This is the cinematic story style."
+    },
+    {
+      "start": 3.37,
+      "end": 6.19,
+      "text": "The same red beanie hero, inside warm"
+    },
+    {
+      "start": 6.19,
+      "end": 9.15,
+      "text": "full-color worlds with real movie lighting."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 3.2,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg-room.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-1",
+          "path": "char-hold.png",
+          "x": 620,
+          "y": 250,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The beanie hero stands in the golden-hour light, breathing gently"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 244
+            },
+            {
+              "t": 1,
+              "y": 256
+            },
+            {
+              "t": 2,
+              "y": 244
+            },
+            {
+              "t": 3,
+              "y": 256
+            },
+            {
+              "t": 3.2,
+              "y": 250
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title-2",
+          "text": "CINEMATIC STORY",
+          "x": 90,
+          "y": 110,
+          "size": 52,
+          "bold": true,
+          "color": "#f6d27a",
+          "keys": [
+            {
+              "t": 0.2,
+              "alpha": 0
+            },
+            {
+              "t": 0.9,
+              "alpha": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3.2,
+      "end": 6.5,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg-road.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-3",
+          "path": "char-walk.png",
+          "x": 300,
+          "y": 300,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The hero walks the dusk road toward the setting sun"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "x": 300,
+              "y": 300
+            },
+            {
+              "t": 1.1,
+              "x": 390,
+              "y": 294
+            },
+            {
+              "t": 2.2,
+              "x": 470,
+              "y": 300
+            },
+            {
+              "t": 3.3,
+              "x": 550,
+              "y": 296
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 6.5,
+      "end": 9.62,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg-summit.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-4",
+          "path": "char-point.png",
+          "x": 420,
+          "y": 280,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "On the summit the hero points back at the journey's reward"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 273
+            },
+            {
+              "t": 1,
+              "y": 287
+            },
+            {
+              "t": 2,
+              "y": 273
+            },
+            {
+              "t": 3,
+              "y": 287
+            },
+            {
+              "t": 3.119999999999999,
+              "y": 280
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "title-5",
+          "text": "THE REWARD",
+          "x": 700,
+          "y": 130,
+          "size": 50,
+          "bold": true,
+          "color": "#f6d27a",
+          "keys": [
+            {
+              "t": 0.4,
+              "alpha": 0
+            },
+            {
+              "t": 1.1,
+              "alpha": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 0.6,
+      "kind": "paper",
+      "gain": 0.03
+    },
+    {
+      "time": 3.4,
+      "kind": "tap",
+      "gain": 0.035
+    },
+    {
+      "time": 6.7,
+      "kind": "chime",
+      "gain": 0.04
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 9.62,
+      "gain": 0.035,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ]
+}

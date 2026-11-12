@@ -1,0 +1,104 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.44,
+      "end": 0.88
+    },
+    {
+      "word": "is",
+      "start": 0.88,
+      "end": 1.06
+    },
+    {
+      "word": "the",
+      "start": 1.06,
+      "end": 1.56
+    },
+    {
+      "word": "cinematic",
+      "start": 1.56,
+      "end": 2.1
+    },
+    {
+      "word": "story",
+      "start": 2.1,
+      "end": 2.6
+    },
+    {
+      "word": "style,",
+      "start": 2.6,
+      "end": 3.08
+    },
+    {
+      "word": "the",
+      "start": 3.22,
+      "end": 3.5
+    },
+    {
+      "word": "same",
+      "start": 3.5,
+      "end": 3.82
+    },
+    {
+      "word": "red",
+      "start": 3.82,
+      "end": 4.02
+    },
+    {
+      "word": "-beenie",
+      "start": 4.02,
+      "end": 4.52
+    },
+    {
+      "word": "hero",
+      "start": 4.52,
+      "end": 5.22
+    },
+    {
+      "word": "inside",
+      "start": 5.22,
+      "end": 5.84
+    },
+    {
+      "word": "warm,",
+      "start": 5.84,
+      "end": 6.04
+    },
+    {
+      "word": "full",
+      "start": 6.38,
+      "end": 6.7
+    },
+    {
+      "word": "-color",
+      "start": 6.7,
+      "end": 7.08
+    },
+    {
+      "word": "worlds",
+      "start": 7.08,
+      "end": 7.4
+    },
+    {
+      "word": "with",
+      "start": 7.66,
+      "end": 7.94
+    },
+    {
+      "word": "real",
+      "start": 7.94,
+      "end": 8.3
+    },
+    {
+      "word": "movie",
+      "start": 8.3,
+      "end": 8.68
+    },
+    {
+      "word": "lighting.",
+      "start": 8.68,
+      "end": 9
+    }
+  ]
+}

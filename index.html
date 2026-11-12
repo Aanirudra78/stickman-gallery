@@ -15,6 +15,19 @@
   .cta { display:inline-block; margin:16px 0 8px; padding:12px 22px; background:var(--amber); color:#161722;
          border-radius:999px; text-decoration:none; font-weight:700; font-size:.95rem; }
   .cta:hover { filter:brightness(1.1); }
+  .studio { background:var(--card); border:1px solid #262a38; border-radius:16px; padding:22px; margin-top:26px; }
+  .studio h2 { margin-bottom:4px; }
+  .studio .sub { color:var(--dim); font-size:.85rem; margin-bottom:14px; }
+  .studio label { display:block; font-size:.8rem; color:var(--dim); margin:12px 0 5px; letter-spacing:.5px; }
+  .studio textarea, .studio input, .studio select {
+    width:100%; background:#12141c; color:var(--text); border:1px solid #33384a; border-radius:10px;
+    padding:11px 12px; font-size:.95rem; font-family:inherit; resize:vertical; }
+  .studio textarea:focus, .studio input:focus, .studio select:focus { outline:2px solid var(--amber); border-color:transparent; }
+  .row { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+  .go { width:100%; margin-top:18px; padding:15px; background:var(--amber); color:#161722; border:0; border-radius:12px;
+        font-size:1.05rem; font-weight:800; cursor:pointer; }
+  .go:hover { filter:brightness(1.1); }
+  .hint { color:var(--dim); font-size:.78rem; margin-top:10px; text-align:center; }
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; margin-top:22px; }
   .card { background:var(--card); border-radius:14px; overflow:hidden; border:1px solid #262a38; }
   .card video { width:100%; aspect-ratio:16/9; display:block; background:#000; }
@@ -33,12 +46,54 @@
 <body>
 <header>
   <h1>STICKMAN <span>STYLES</span></h1>
-  <p>Tap any demo to watch. Pick a look, then make your own video — free.</p>
-  <a class="cta" href="https://github.com/Aanirudra78/stickman2/actions">🎬 Make your own video</a>
+  <p>Paste a script or a topic, pick a style — get an animated stickman video. Free.</p>
 </header>
 
+<section class="studio" id="studio">
+  <h2>🎬 Make Your Video</h2>
+  <p class="sub">Type a topic (the AI writes the script) <b>or</b> paste your full script. Renders in ~10 minutes on GitHub's free servers, then appears below.</p>
+  <label for="f-topic">TOPIC (used if script is empty)</label>
+  <input id="f-topic" type="text" placeholder="e.g. Why do we procrastinate?">
+  <label for="f-script">SCRIPT (paste full script — used as-is)</label>
+  <textarea id="f-script" rows="4" placeholder="Optional — paste your script here instead of a topic"></textarea>
+  <div class="row">
+    <div>
+      <label for="f-style">STYLE</label>
+      <select id="f-style">
+        <option value="B2">B2 · Colorful Hand-Drawn</option>
+        <option value="B1">B1 · Minimal Line Art</option>
+        <option value="A1.1">A1.1 · Minimal Line</option>
+        <option value="A1.2">A1.2 · Classic B&amp;W</option>
+        <option value="A2.1">A2.1 · Modern Pop</option>
+        <option value="A2.2">A2.2 · Cinematic Story</option>
+        <option value="A3">A3 · Prehistoric Cave</option>
+        <option value="A4">A4 · Cozy Storytelling</option>
+        <option value="A5">A5 · Historical Cartoon</option>
+        <option value="A6">A6 · Amber Noir</option>
+      </select>
+    </div>
+    <div>
+      <label for="f-voice">VOICE</label>
+      <select id="f-voice"><option>English</option><option>Hindi</option></select>
+    </div>
+    <div>
+      <label for="f-seconds">LENGTH (SEC)</label>
+      <input id="f-seconds" type="number" min="20" max="90" value="40">
+    </div>
+  </div>
+  <button class="go" onclick="makeIssue()">🚀 MAKE MY ANIMATION</button>
+  <div class="hint">Opens a pre-filled request on GitHub — tap <b>Create</b>, then wait ~10 min. Your video appears in "Your Videos" below.</div>
+</section>
+
+<section id="your-videos" style="display:none">
+  <h2>📺 Your Videos</h2>
+  <p class="sub" style="color:var(--dim);font-size:.85rem;margin-bottom:6px;">Videos you rendered through this site.</p>
+  <div class="grid" id="your-videos-grid"></div>
+</section>
+
 <section>
-  <h2>A · Director Mode</h2>
+  <h2 style="font-size:1.15rem;margin:30px 0 4px;">Style Gallery</h2>
+  <p class="sub" style="color:var(--dim);font-size:.85rem;margin-bottom:6px;">A · Director Mode — pick the vibe you want.</p>
   <div class="grid">
     <div class="card"><video src="videos/minimal-line-art-b1.mp4" controls playsinline preload="metadata"></video>
       <div class="meta"><div class="code">A1.1</div><div class="name">Minimal Line Art</div>
@@ -94,7 +149,46 @@
 </section>
 
 <footer>
-  Videos made with a free local stickman pipeline · <a href="https://github.com/Aanirudra78/stickman2">source</a>
+  Videos made with a free local stickman pipeline · <a href="https://github.com/Aanirudra78/stickman-gallery">source</a>
 </footer>
+
+<script>
+function makeIssue() {
+  const topic = document.getElementById('f-topic').value.trim();
+  const script = document.getElementById('f-script').value.trim();
+  const style = document.getElementById('f-style').value;
+  const voice = document.getElementById('f-voice').value;
+  let seconds = parseInt(document.getElementById('f-seconds').value, 10);
+  if (!Number.isFinite(seconds)) seconds = 40;
+  seconds = Math.min(90, Math.max(20, seconds));
+  if (!topic && !script) { alert('Type a topic or paste a script first 🙂'); return; }
+  let body = '';
+  if (topic) body += 'topic: ' + topic + '\n';
+  if (script) body += 'script: ' + script + '\n';
+  body += 'style: ' + style + '\nvoice: ' + voice + '\nseconds: ' + seconds + '\n';
+  const title = '[render] ' + (topic || script.replace(/\s+/g, ' ').slice(0, 60));
+  location.href = 'https://github.com/Aanirudra78/stickman-gallery/issues/new?title=' +
+    encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+}
+
+fetch('renders/manifest.json', { cache: 'no-store' })
+  .then(r => r.ok ? r.json() : Promise.reject())
+  .then(list => {
+    if (!Array.isArray(list) || !list.length) return Promise.reject();
+    const grid = document.getElementById('your-videos-grid');
+    document.getElementById('your-videos').style.display = 'block';
+    for (const v of list) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML =
+        '<video src="' + v.file + '" controls playsinline preload="metadata"></video>' +
+        '<div class="meta"><div class="code">' + (v.style || '') + ' · ' + (v.voice || '') + '</div>' +
+        '<div class="name">' + (v.title || 'Rendered video') + '</div>' +
+        '<div class="best">' + (v.date || '') + '</div></div>';
+      grid.appendChild(card);
+    }
+  })
+  .catch(() => {});
+</script>
 </body>
 </html>

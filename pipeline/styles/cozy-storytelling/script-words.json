@@ -1,0 +1,89 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.54,
+      "end": 1.04
+    },
+    {
+      "word": "is",
+      "start": 1.04,
+      "end": 1.36
+    },
+    {
+      "word": "cozy",
+      "start": 1.36,
+      "end": 2
+    },
+    {
+      "word": "storytelling.",
+      "start": 2,
+      "end": 3
+    },
+    {
+      "word": "Colorful",
+      "start": 3.4,
+      "end": 4
+    },
+    {
+      "word": "everyday",
+      "start": 4,
+      "end": 4.6
+    },
+    {
+      "word": "scenes,",
+      "start": 4.6,
+      "end": 5.1
+    },
+    {
+      "word": "soft",
+      "start": 5.36,
+      "end": 5.82
+    },
+    {
+      "word": "warm",
+      "start": 5.82,
+      "end": 6.1
+    },
+    {
+      "word": "light,",
+      "start": 6.1,
+      "end": 6.44
+    },
+    {
+      "word": "and",
+      "start": 6.64,
+      "end": 7.06
+    },
+    {
+      "word": "relatable",
+      "start": 7.06,
+      "end": 7.46
+    },
+    {
+      "word": "little",
+      "start": 7.46,
+      "end": 7.74
+    },
+    {
+      "word": "moments",
+      "start": 7.74,
+      "end": 8.04
+    },
+    {
+      "word": "from",
+      "start": 8.04,
+      "end": 8.26
+    },
+    {
+      "word": "daily",
+      "start": 8.26,
+      "end": 8.76
+    },
+    {
+      "word": "life.",
+      "start": 8.76,
+      "end": 9
+    }
+  ]
+}

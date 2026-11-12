@@ -1,0 +1,89 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.44,
+      "end": 0.72
+    },
+    {
+      "word": "is",
+      "start": 0.72,
+      "end": 1.5
+    },
+    {
+      "word": "historical",
+      "start": 1.5,
+      "end": 2.18
+    },
+    {
+      "word": "cartoon.",
+      "start": 2.18,
+      "end": 2.82
+    },
+    {
+      "word": "Expressive",
+      "start": 3.14,
+      "end": 3.82
+    },
+    {
+      "word": "characters",
+      "start": 3.82,
+      "end": 4.16
+    },
+    {
+      "word": "in",
+      "start": 4.16,
+      "end": 4.7
+    },
+    {
+      "word": "colorful",
+      "start": 4.7,
+      "end": 5.28
+    },
+    {
+      "word": "painted",
+      "start": 5.28,
+      "end": 5.72
+    },
+    {
+      "word": "worlds,",
+      "start": 5.72,
+      "end": 6.12
+    },
+    {
+      "word": "like",
+      "start": 6.34,
+      "end": 6.56
+    },
+    {
+      "word": "a",
+      "start": 6.56,
+      "end": 6.92
+    },
+    {
+      "word": "samurai",
+      "start": 6.92,
+      "end": 7.12
+    },
+    {
+      "word": "story",
+      "start": 7.48,
+      "end": 7.76
+    },
+    {
+      "word": "in",
+      "start": 7.76,
+      "end": 7.98
+    },
+    {
+      "word": "Edo",
+      "start": 7.98,
+      "end": 8.42
+    },
+    {
+      "word": "Japan.",
+      "start": 8.42,
+      "end": 8.64
+    }
+  ]
+}

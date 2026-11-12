@@ -1,0 +1,114 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.54,
+      "end": 0.92
+    },
+    {
+      "word": "is",
+      "start": 0.92,
+      "end": 1.12
+    },
+    {
+      "word": "the",
+      "start": 1.12,
+      "end": 1.42
+    },
+    {
+      "word": "Retro",
+      "start": 1.42,
+      "end": 1.92
+    },
+    {
+      "word": "TV",
+      "start": 1.92,
+      "end": 2.44
+    },
+    {
+      "word": "style.",
+      "start": 2.44,
+      "end": 2.74
+    },
+    {
+      "word": "Rounded",
+      "start": 3.46,
+      "end": 3.88
+    },
+    {
+      "word": "white",
+      "start": 3.88,
+      "end": 4.5
+    },
+    {
+      "word": "characters",
+      "start": 4.5,
+      "end": 4.76
+    },
+    {
+      "word": "on",
+      "start": 4.76,
+      "end": 4.86
+    },
+    {
+      "word": "a",
+      "start": 4.86,
+      "end": 5.06
+    },
+    {
+      "word": "dark",
+      "start": 5.06,
+      "end": 5.46
+    },
+    {
+      "word": "screen,",
+      "start": 5.46,
+      "end": 6
+    },
+    {
+      "word": "soft",
+      "start": 6.2,
+      "end": 6.54
+    },
+    {
+      "word": "glow,",
+      "start": 6.54,
+      "end": 6.84
+    },
+    {
+      "word": "scan",
+      "start": 7.42,
+      "end": 7.72
+    },
+    {
+      "word": "lines,",
+      "start": 7.72,
+      "end": 8.2
+    },
+    {
+      "word": "and",
+      "start": 8.28,
+      "end": 8.38
+    },
+    {
+      "word": "a",
+      "start": 8.38,
+      "end": 8.72
+    },
+    {
+      "word": "3AM",
+      "start": 8.72,
+      "end": 9.52
+    },
+    {
+      "word": "mystery",
+      "start": 9.52,
+      "end": 9.82
+    },
+    {
+      "word": "mood.",
+      "start": 9.82,
+      "end": 10
+    }
+  ]
+}

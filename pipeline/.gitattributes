@@ -1,0 +1,8 @@
+# hash-locked runtime assets must keep their exact bytes (no EOL conversion anywhere)
+runtime/assets/** -text
+runtime/scripts/** -text
+*.ttf binary
+*.otf binary
+*.png binary
+*.mp4 binary
+*.wav binary

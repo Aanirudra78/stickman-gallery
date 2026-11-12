@@ -1,0 +1,57 @@
+{
+  "presenter": {
+    "kind": "complex_character",
+    "path": "assets/rig/spider-approved.svg",
+    "sha256": "10c7aa42249a9a35867828027374efba8446fbb06836b43658bc4363ec5858a2",
+    "identity_anchor": "The bundled owner-approved B5 presenter rig reused byte-identically: masked head silhouette, suit markings and glove shapes locked by the baseline hash in assets/b5/baseline-lock.json.",
+    "style_anchor": "B5 treatment: abstract cartoon presenter on a stick body at bottom-right, warm paper background, dark ink contours, restrained red accents, Instrument Sans caption / Anton headline hierarchy.",
+    "static_approval": "No new identity was created. The rig is the owner-published approved B5 baseline asset (assets/b5/example/assets/rig/spider-approved.svg), hash-locked; the user requested a B5 style-gallery demo in the 2026-11-12 chat.",
+    "source": {
+      "type": "approved_reuse",
+      "origin": "Bundled B5 example asset assets/b5/example/assets/rig/spider-approved.svg (owner-authorized B5 publication recorded 2026-11-10), copied unchanged by character-explainer init",
+      "references": []
+    }
+  },
+  "captions": {
+    "preset": "b5-instrument-anton-v1",
+    "font": { "path": "assets/fonts/Instrument-Sans-1.ttf", "sha256": "d25efe5b0dcf3b36607d9a0fb046932547a5dfec407ea17162ca126d63b33d42" },
+    "title_font": { "path": "assets/fonts/Anton-0.ttf", "sha256": "fd9301f2837c99df2be07cc7f0be66e9470f5354d8fcf1606027c67fcd637a53" },
+    "semantic_review": "Captions, word timings and semantic caption groups are the approved sample's own locked data, reused unchanged; no new story captions were authored for this gallery demo.",
+    "override": {
+      "kind": "user_choice",
+      "reason": "Gallery demo must show the sample as-published; user asked for a demo of the B5 style, not a re-authored story.",
+      "treatment": "Keep the bundled Instrument Sans/Anton hierarchy, semantic key-word highlighting and three-line limit exactly as published; no restyle applied.",
+      "user_approval": "User request in 2026-11-12 chat: 'sample video in every style' plus follow-up asking to add the A/Director style gallery; demo-only reuse of the published treatment."
+    }
+  },
+  "sound": [
+    {
+      "kind": "dialogue",
+      "start": 0,
+      "end": 22.8,
+      "reason": "The approved sample narration with its own music and beat-level effects plays unchanged for the whole demo.",
+      "path": "final-mix.wav",
+      "sha256": "6c408093aeb9d40dca6eff955bdaebdad1d5c216e5395cf31bf093766563e6c9",
+      "rights": "Audio extracted from the bundled owner-published approved B5 sample video (assets/b5/approved-sample.mp4), hash-locked in baseline-lock.json; reused unchanged."
+    },
+    {
+      "kind": "quiet",
+      "start": 0,
+      "end": 22.8,
+      "reason": "The approved mix already carries its own ambience and motivated beat sound design; no separate quiet-room bed is layered."
+    }
+  ],
+  "sound_review": "Audio is the owner-published approved sample mix reused byte-identically (hash-locked); no new listening review was performed for this demo run and none is claimed beyond the baseline's published status.",
+  "mix": { "path": "final-mix.wav", "sha256": "6c408093aeb9d40dca6eff955bdaebdad1d5c216e5395cf31bf093766563e6c9" },
+  "motion": [
+    { "start": 0.0, "end": 2.5, "role": "actor", "reason": "Failed tug, heave raises the giant crate corner, then the slam launches the actor", "region": [60, 260, 560, 420] },
+    { "start": 2.5, "end": 5.3, "role": "actor", "reason": "Oversized gift skids in, ribbon loops bind the torso and drag the actor", "region": [240, 240, 620, 420] },
+    { "start": 5.3, "end": 7.8, "role": "actor", "reason": "Paper tower lands beside the actor and tips into the avalanche", "region": [140, 140, 760, 520] },
+    { "start": 7.8, "end": 9.6, "role": "actor", "reason": "Avalanche covers the stage; actor springs clear as the door slams and locks", "region": [140, 140, 800, 540] },
+    { "start": 9.6, "end": 13.0, "role": "actor", "reason": "Actor slides into curled isolation, flinches, then deflates at the independence contradiction", "region": [60, 300, 620, 460] },
+    { "start": 13.0, "end": 15.6, "role": "actor", "reason": "The narrator keeps explaining over the held curl: voice-driven mouth, seeded blinks and glove gestures", "region": [1460, 620, 300, 300] },
+    { "start": 15.6, "end": 17.6, "role": "actor", "reason": "Childhood reach rises and the connection snaps; actor recoils", "region": [60, 250, 700, 500] },
+    { "start": 17.6, "end": 20.6, "role": "actor", "reason": "Mirror approach, retreat and retouch beat across the stage", "region": [60, 250, 700, 500] },
+    { "start": 20.6, "end": 22.8, "role": "actor", "reason": "Hands return to self and the final YOU headline lands", "region": [60, 250, 760, 520] }
+  ]
+}

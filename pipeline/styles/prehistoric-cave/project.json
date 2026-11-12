@@ -1,0 +1,368 @@
+{
+  "version": 1,
+  "style": "B2",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0.15,
+    "tail": 0.35
+  },
+  "captions": [
+    {
+      "start": 0.57,
+      "end": 2.85,
+      "text": "This is prehistoric cave."
+    },
+    {
+      "start": 3.09,
+      "end": 6.550000000000001,
+      "text": "Earthy hand drawn cave walls, warm firelight, and"
+    },
+    {
+      "start": 6.550000000000001,
+      "end": 8.15,
+      "text": "a short story with a twist."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 3.01,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "text",
+          "text": "PREHISTORIC.",
+          "x": 90,
+          "y": 120,
+          "size": 54,
+          "bold": true,
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0
+            },
+            {
+              "t": 0.3,
+              "alpha": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "actor-11",
+          "path": "char-stand.png",
+          "x": 420,
+          "y": 220,
+          "w": 330,
+          "h": 412,
+          "motion": {
+            "role": "actor",
+            "reason": "The cave character warms up by the fire"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 214,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 226,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 214,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 226,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-12",
+          "path": "fire.png",
+          "x": 180,
+          "y": 380,
+          "w": 160,
+          "h": 200,
+          "motion": {
+            "role": "prop",
+            "reason": "The fire flickers warm against the cave wall"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "w": 160,
+              "x": 180,
+              "y": 380
+            },
+            {
+              "t": 0.5,
+              "w": 172,
+              "x": 174,
+              "y": 372
+            },
+            {
+              "t": 1,
+              "w": 158,
+              "x": 181,
+              "y": 381
+            },
+            {
+              "t": 1.5,
+              "w": 170,
+              "x": 175,
+              "y": 373
+            },
+            {
+              "t": 3.01,
+              "w": 160,
+              "x": 180,
+              "y": 380
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3.01,
+      "end": 5.94,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-13",
+          "path": "char-hold.png",
+          "x": 260,
+          "y": 220,
+          "w": 330,
+          "h": 412,
+          "motion": {
+            "role": "actor",
+            "reason": "The character discovers something round and rolls it"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 213,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 227,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 213,
+              "angle": -0.005
+            },
+            {
+              "t": 2.93,
+              "y": 227,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-14",
+          "path": "wheel.png",
+          "x": 640,
+          "y": 420,
+          "w": 200,
+          "h": 200,
+          "motion": {
+            "role": "prop",
+            "reason": "The stone wheel rolls forward, wobbling on rough ground"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "x": 640,
+              "angle": 0
+            },
+            {
+              "t": 0.8,
+              "x": 720,
+              "angle": 0.8
+            },
+            {
+              "t": 1.6,
+              "x": 790,
+              "angle": 1.6
+            },
+            {
+              "t": 2.4,
+              "x": 860,
+              "angle": 2.4
+            },
+            {
+              "t": 2.9300000000000006,
+              "x": 900,
+              "angle": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 5.94,
+      "end": 8.86,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-15",
+          "path": "char-point.png",
+          "x": 250,
+          "y": 220,
+          "w": 330,
+          "h": 412,
+          "motion": {
+            "role": "actor",
+            "reason": "The character points at the invention with a grin"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 212,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 228,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 212,
+              "angle": -0.005
+            },
+            {
+              "t": 2.919999999999999,
+              "y": 228,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-16",
+          "path": "wheel.png",
+          "x": 680,
+          "y": 400,
+          "w": 210,
+          "h": 210,
+          "motion": {
+            "role": "prop",
+            "reason": "The wheel keeps rolling â€” the twist lands"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "x": 680,
+              "angle": 0
+            },
+            {
+              "t": 0.7,
+              "x": 740,
+              "angle": 0.7
+            },
+            {
+              "t": 1.4,
+              "x": 800,
+              "angle": 1.4
+            },
+            {
+              "t": 2.1,
+              "x": 860,
+              "angle": 2.1
+            },
+            {
+              "t": 2.919999999999999,
+              "x": 900,
+              "angle": 2.7
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "THE WHEEL!",
+          "x": 640,
+          "y": 130,
+          "size": 50,
+          "bold": true,
+          "color": "#e8b73a",
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0
+            },
+            {
+              "t": 0.5,
+              "alpha": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 0.5,
+      "kind": "pop",
+      "gain": 0.035
+    },
+    {
+      "time": 3.8099999999999996,
+      "kind": "tap",
+      "gain": 0.04
+    },
+    {
+      "time": 6.640000000000001,
+      "kind": "chime",
+      "gain": 0.04
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 8.86,
+      "gain": 0.04,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ]
+}

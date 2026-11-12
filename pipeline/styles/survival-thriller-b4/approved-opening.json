@@ -1,0 +1,11 @@
+{
+  "setup": "THE TOWER IS",
+  "payoff": "DARK.",
+  "before": "art/opening-before.png",
+  "after": "art/opening-after.png",
+  "meaning": "One dead window on the dark tower warms up with light as a black watcher silhouette appears inside it - the threatening relationship becomes visible while the hook asks why.",
+  "width": 1280,
+  "height": 720,
+  "duration": 3,
+  "region": { "x": 780, "y": 160, "w": 360, "h": 300 }
+}

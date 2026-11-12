@@ -1,0 +1,102 @@
+{
+  "opening": {
+    "version": 1,
+    "preset": "b4-hook-v1",
+    "shadow": "hook-shadow",
+    "setup": "hook-setup",
+    "payoff": "hook-payoff",
+    "picture": {
+      "before": "hook-before",
+      "after": "hook-after",
+      "meaning": "One dead window on the dark tower warms up with light as a black watcher silhouette appears inside it - the threatening relationship becomes visible while the hook asks why.",
+      "region": {
+        "x": 780,
+        "y": 160,
+        "w": 360,
+        "h": 300
+      }
+    }
+  },
+  "shot": {
+    "start": 0,
+    "end": 3,
+    "layers": [
+      {
+        "id": "hook-before",
+        "type": "image",
+        "path": "art/opening-before.png",
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 720
+      },
+      {
+        "id": "hook-after",
+        "type": "image",
+        "path": "art/opening-after.png",
+        "x": 0,
+        "y": 0,
+        "w": 1280,
+        "h": 720,
+        "from": 1.05,
+        "keys": [
+          {
+            "t": 1.05,
+            "alpha": 0
+          },
+          {
+            "t": 1.35,
+            "alpha": 1
+          }
+        ]
+      },
+      {
+        "id": "hook-shadow",
+        "type": "shadow",
+        "x": 0,
+        "y": 0,
+        "w": 760,
+        "h": 720
+      },
+      {
+        "id": "hook-setup",
+        "type": "text",
+        "b4Hook": "setup",
+        "text": "THE TOWER IS",
+        "x": 60,
+        "y": 144,
+        "w": 550,
+        "size": 62,
+        "bold": true,
+        "color": "#fff3df"
+      },
+      {
+        "id": "hook-payoff",
+        "type": "text",
+        "b4Hook": "payoff",
+        "text": "DARK.",
+        "x": 60,
+        "y": 324,
+        "w": 550,
+        "size": 96,
+        "bold": true,
+        "color": "#ee695b",
+        "from": 0.65,
+        "pivotX": 275,
+        "pivotY": 110.39999999999999,
+        "keys": [
+          {
+            "t": 0.65,
+            "scaleX": 1.035,
+            "scaleY": 1.035
+          },
+          {
+            "t": 0.8500000000000001,
+            "scaleX": 1,
+            "scaleY": 1
+          }
+        ]
+      }
+    ]
+  }
+}

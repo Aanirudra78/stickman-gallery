@@ -1,0 +1,89 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.4,
+      "end": 0.72
+    },
+    {
+      "word": "is",
+      "start": 0.72,
+      "end": 1.26
+    },
+    {
+      "word": "Amber",
+      "start": 1.26,
+      "end": 1.56
+    },
+    {
+      "word": "Noir,",
+      "start": 1.56,
+      "end": 2.3
+    },
+    {
+      "word": "a",
+      "start": 2.78,
+      "end": 2.9
+    },
+    {
+      "word": "hooded",
+      "start": 2.9,
+      "end": 3.32
+    },
+    {
+      "word": "figure",
+      "start": 3.32,
+      "end": 3.82
+    },
+    {
+      "word": "moves",
+      "start": 3.82,
+      "end": 4.08
+    },
+    {
+      "word": "through",
+      "start": 4.08,
+      "end": 4.2
+    },
+    {
+      "word": "a",
+      "start": 4.2,
+      "end": 4.62
+    },
+    {
+      "word": "warm",
+      "start": 4.62,
+      "end": 5.2
+    },
+    {
+      "word": "amber",
+      "start": 5.2,
+      "end": 5.62
+    },
+    {
+      "word": "city",
+      "start": 5.62,
+      "end": 6.22
+    },
+    {
+      "word": "wrapped",
+      "start": 6.22,
+      "end": 6.5
+    },
+    {
+      "word": "in",
+      "start": 6.5,
+      "end": 6.7
+    },
+    {
+      "word": "deep",
+      "start": 6.7,
+      "end": 7.14
+    },
+    {
+      "word": "shadows.",
+      "start": 7.14,
+      "end": 7.44
+    }
+  ]
+}

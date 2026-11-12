@@ -1,0 +1,99 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.34,
+      "end": 0.5
+    },
+    {
+      "word": "is",
+      "start": 0.5,
+      "end": 0.82
+    },
+    {
+      "word": "colorful",
+      "start": 0.82,
+      "end": 1.66
+    },
+    {
+      "word": "hand",
+      "start": 1.66,
+      "end": 2.44
+    },
+    {
+      "word": "drawn.",
+      "start": 2.44,
+      "end": 2.4899999999999998
+    },
+    {
+      "word": "A",
+      "start": 2.4899999999999998,
+      "end": 2.82
+    },
+    {
+      "word": "warm",
+      "start": 2.82,
+      "end": 3.2
+    },
+    {
+      "word": "paper",
+      "start": 3.2,
+      "end": 3.82
+    },
+    {
+      "word": "page,",
+      "start": 3.82,
+      "end": 4
+    },
+    {
+      "word": "fine",
+      "start": 4.44,
+      "end": 4.8
+    },
+    {
+      "word": "ink",
+      "start": 4.8,
+      "end": 5.26
+    },
+    {
+      "word": "contours,",
+      "start": 5.26,
+      "end": 5.72
+    },
+    {
+      "word": "and",
+      "start": 5.72,
+      "end": 6.56
+    },
+    {
+      "word": "gentle",
+      "start": 6.56,
+      "end": 7.04
+    },
+    {
+      "word": "everyday",
+      "start": 7.04,
+      "end": 7.46
+    },
+    {
+      "word": "scenes",
+      "start": 7.46,
+      "end": 7.72
+    },
+    {
+      "word": "with",
+      "start": 7.72,
+      "end": 8.06
+    },
+    {
+      "word": "quiet",
+      "start": 8.06,
+      "end": 8.38
+    },
+    {
+      "word": "humor.",
+      "start": 8.38,
+      "end": 8.6
+    }
+  ]
+}

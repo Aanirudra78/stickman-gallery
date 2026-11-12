@@ -1,0 +1,94 @@
+{
+  "words": [
+    {
+      "word": "This",
+      "start": 0.42,
+      "end": 0.8
+    },
+    {
+      "word": "is",
+      "start": 0.8,
+      "end": 1.1
+    },
+    {
+      "word": "prehistoric",
+      "start": 1.1,
+      "end": 2.04
+    },
+    {
+      "word": "cave.",
+      "start": 2.04,
+      "end": 2.7
+    },
+    {
+      "word": "Earthy",
+      "start": 2.94,
+      "end": 3.48
+    },
+    {
+      "word": "hand",
+      "start": 3.48,
+      "end": 3.5
+    },
+    {
+      "word": "drawn",
+      "start": 3.5,
+      "end": 3.98
+    },
+    {
+      "word": "cave",
+      "start": 3.98,
+      "end": 4.3
+    },
+    {
+      "word": "walls,",
+      "start": 4.3,
+      "end": 4.9
+    },
+    {
+      "word": "warm",
+      "start": 5.12,
+      "end": 5.48
+    },
+    {
+      "word": "firelight,",
+      "start": 5.48,
+      "end": 6.3
+    },
+    {
+      "word": "and",
+      "start": 6.3,
+      "end": 6.4
+    },
+    {
+      "word": "a",
+      "start": 6.4,
+      "end": 6.6
+    },
+    {
+      "word": "short",
+      "start": 6.6,
+      "end": 7.1
+    },
+    {
+      "word": "story",
+      "start": 7.1,
+      "end": 7.5
+    },
+    {
+      "word": "with",
+      "start": 7.5,
+      "end": 7.66
+    },
+    {
+      "word": "a",
+      "start": 7.66,
+      "end": 7.88
+    },
+    {
+      "word": "twist.",
+      "start": 7.88,
+      "end": 8
+    }
+  ]
+}

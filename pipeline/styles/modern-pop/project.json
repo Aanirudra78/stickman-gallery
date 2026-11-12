@@ -1,0 +1,287 @@
+{
+  "version": 1,
+  "style": "B2",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0.15,
+    "tail": 0.35
+  },
+  "captions": [
+    {
+      "start": 0.59,
+      "end": 2.53,
+      "text": "This is modern pop."
+    },
+    {
+      "start": 2.67,
+      "end": 5.010000000000001,
+      "text": "A red beanie character in a bright white"
+    },
+    {
+      "start": 5.010000000000001,
+      "end": 7.15,
+      "text": "tech studio, glowing with cyan"
+    },
+    {
+      "start": 7.2700000000000005,
+      "end": 7.84,
+      "text": "light."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 2.67,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "text",
+          "text": "MODERN POP.",
+          "x": 90,
+          "y": 120,
+          "size": 54,
+          "bold": true,
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0
+            },
+            {
+              "t": 0.3,
+              "alpha": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "actor-6",
+          "path": "char-walk.png",
+          "x": 200,
+          "y": 280,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The red beanie character strides into the white studio"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "x": 200,
+              "y": 280
+            },
+            {
+              "t": 2.67,
+              "x": 330,
+              "y": 274
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 2.67,
+      "end": 5.27,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-7",
+          "path": "char-point.png",
+          "x": 400,
+          "y": 280,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The character taps the floating glass panel"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 274,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 286,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 274,
+              "angle": -0.005
+            },
+            {
+              "t": 2.5999999999999996,
+              "y": 286,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-8",
+          "path": "panel.png",
+          "x": 780,
+          "y": 220,
+          "w": 300,
+          "h": 200,
+          "motion": {
+            "role": "prop",
+            "reason": "The cyan glass panel pulses as it is touched"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0.6
+            },
+            {
+              "t": 0.5,
+              "alpha": 1
+            },
+            {
+              "t": 1.1,
+              "alpha": 0.75
+            },
+            {
+              "t": 1.7,
+              "alpha": 1
+            },
+            {
+              "t": 2.5999999999999996,
+              "alpha": 0.85
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 5.27,
+      "end": 7.86,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-9",
+          "path": "char-wave.png",
+          "x": 340,
+          "y": 280,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The character waves beside the rising glow"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 273,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 287,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 273,
+              "angle": -0.005
+            },
+            {
+              "t": 2.59,
+              "y": 287,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-10",
+          "path": "arrow-cyan.png",
+          "x": 760,
+          "y": 200,
+          "w": 90,
+          "h": 180,
+          "motion": {
+            "role": "prop",
+            "reason": "A cyan arrow rises with the glow"
+          },
+          "keys": [
+            {
+              "t": 0.2,
+              "y": 260,
+              "alpha": 0
+            },
+            {
+              "t": 0.8,
+              "y": 200,
+              "alpha": 1
+            },
+            {
+              "t": 1.6,
+              "y": 192
+            },
+            {
+              "t": 2.5900000000000007,
+              "y": 198
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 0.5,
+      "kind": "pop",
+      "gain": 0.035
+    },
+    {
+      "time": 3.07,
+      "kind": "chime",
+      "gain": 0.04
+    },
+    {
+      "time": 5.869999999999999,
+      "kind": "pop",
+      "gain": 0.035
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 7.86,
+      "gain": 0.04,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ]
+}

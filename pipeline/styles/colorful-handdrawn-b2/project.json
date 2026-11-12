@@ -1,0 +1,276 @@
+{
+  "version": 1,
+  "style": "B2",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0.15,
+    "tail": 0.35
+  },
+  "captions": [
+    {
+      "start": 0.49,
+      "end": 2.6399999999999997,
+      "text": "This is colorful hand drawn."
+    },
+    {
+      "start": 2.6399999999999997,
+      "end": 4.15,
+      "text": "A warm paper page,"
+    },
+    {
+      "start": 4.590000000000001,
+      "end": 7.87,
+      "text": "fine ink contours, and gentle everyday scenes"
+    },
+    {
+      "start": 7.87,
+      "end": 8.75,
+      "text": "with quiet humor."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 3.15,
+      "layers": [
+        {
+          "type": "text",
+          "text": "HAND-DRAWN.",
+          "x": 90,
+          "y": 120,
+          "size": 54,
+          "bold": true,
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0
+            },
+            {
+              "t": 0.3,
+              "alpha": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "actor-1",
+          "path": "char-wave.png",
+          "x": 700,
+          "y": 180,
+          "w": 340,
+          "h": 425,
+          "motion": {
+            "role": "actor",
+            "reason": "The character waves hello on the warm paper page"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 172,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 188,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 172,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 188,
+              "angle": -0.019
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3.15,
+      "end": 6.2,
+      "layers": [
+        {
+          "type": "image",
+          "id": "actor-2",
+          "path": "char-hold.png",
+          "x": 480,
+          "y": 180,
+          "w": 340,
+          "h": 425,
+          "motion": {
+            "role": "actor",
+            "reason": "The character pauses for a quiet everyday moment with a mug"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 174,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 186,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 174,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 186,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-3",
+          "path": "mug.png",
+          "x": 760,
+          "y": 420,
+          "w": 90,
+          "h": 90,
+          "motion": {
+            "role": "prop",
+            "reason": "The mug rests in the character's hands and steams gently"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 415,
+              "angle": 0
+            },
+            {
+              "t": 0.9,
+              "y": 425,
+              "angle": 0.02
+            },
+            {
+              "t": 1.8,
+              "y": 415,
+              "angle": -0.005
+            },
+            {
+              "t": 2.7,
+              "y": 425,
+              "angle": -0.019
+            },
+            {
+              "t": 3.05,
+              "y": 415,
+              "angle": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 6.2,
+      "end": 9.26,
+      "layers": [
+        {
+          "type": "image",
+          "id": "actor-4",
+          "path": "char-point.png",
+          "x": 260,
+          "y": 180,
+          "w": 340,
+          "h": 425,
+          "motion": {
+            "role": "actor",
+            "reason": "The character points up as the idea arrives"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 172,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 188,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 172,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 188,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-5",
+          "path": "bulb.png",
+          "x": 620,
+          "y": 120,
+          "w": 120,
+          "h": 140,
+          "motion": {
+            "role": "prop",
+            "reason": "The idea bulb glows with quiet humor"
+          },
+          "keys": [
+            {
+              "t": 0.2,
+              "alpha": 0
+            },
+            {
+              "t": 0.8,
+              "alpha": 1
+            },
+            {
+              "t": 1.6,
+              "y": 116
+            },
+            {
+              "t": 3.0599999999999996,
+              "y": 120
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 0.4,
+      "kind": "pop",
+      "gain": 0.035
+    },
+    {
+      "time": 3.35,
+      "kind": "tap",
+      "gain": 0.035
+    },
+    {
+      "time": 6.7,
+      "kind": "chime",
+      "gain": 0.04
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 9.26,
+      "gain": 0.04,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ]
+}

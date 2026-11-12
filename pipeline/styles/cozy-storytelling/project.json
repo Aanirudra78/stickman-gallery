@@ -1,0 +1,304 @@
+{
+  "version": 1,
+  "style": "B2",
+  "width": 1280,
+  "height": 720,
+  "fps": 30,
+  "voice": {
+    "path": "narration.wav",
+    "lead": 0.15,
+    "tail": 0.35
+  },
+  "captions": [
+    {
+      "start": 0.6900000000000001,
+      "end": 3.15,
+      "text": "This is cozy storytelling."
+    },
+    {
+      "start": 3.55,
+      "end": 6.590000000000001,
+      "text": "Colorful everyday scenes, soft warm light,"
+    },
+    {
+      "start": 6.79,
+      "end": 9.15,
+      "text": "and relatable little moments from daily life."
+    }
+  ],
+  "shots": [
+    {
+      "start": 0,
+      "end": 3.26,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "text",
+          "text": "COZY.",
+          "x": 90,
+          "y": 110,
+          "size": 54,
+          "bold": true,
+          "keys": [
+            {
+              "t": 0,
+              "alpha": 0
+            },
+            {
+              "t": 0.3,
+              "alpha": 1
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "actor-17",
+          "path": "char-hold.png",
+          "x": 480,
+          "y": 260,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The character wraps both hands around a warm mug"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 254,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 266,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 254,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 266,
+              "angle": -0.019
+            },
+            {
+              "t": 3.26,
+              "y": 254,
+              "angle": 0.01
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-18",
+          "path": "mug.png",
+          "x": 740,
+          "y": 500,
+          "w": 90,
+          "h": 90,
+          "motion": {
+            "role": "prop",
+            "reason": "The mug steams in warm light"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 495,
+              "angle": 0
+            },
+            {
+              "t": 0.9,
+              "y": 505,
+              "angle": 0.02
+            },
+            {
+              "t": 1.8,
+              "y": 495,
+              "angle": -0.005
+            },
+            {
+              "t": 2.7,
+              "y": 505,
+              "angle": -0.019
+            },
+            {
+              "t": 3.26,
+              "y": 495,
+              "angle": 0.01
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 3.26,
+      "end": 6.42,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-19",
+          "path": "char-walk.png",
+          "x": 300,
+          "y": 270,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The character wanders through the room mid-thought"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "x": 300,
+              "y": 270
+            },
+            {
+              "t": 0.9,
+              "x": 380,
+              "y": 264
+            },
+            {
+              "t": 1.8,
+              "x": 460,
+              "y": 270
+            },
+            {
+              "t": 3.16,
+              "x": 540,
+              "y": 266
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": 6.42,
+      "end": 9.58,
+      "layers": [
+        {
+          "type": "image",
+          "path": "bg.png",
+          "x": 0,
+          "y": 0,
+          "w": 1280,
+          "h": 720
+        },
+        {
+          "type": "image",
+          "id": "actor-20",
+          "path": "char-point.png",
+          "x": 300,
+          "y": 260,
+          "w": 320,
+          "h": 400,
+          "motion": {
+            "role": "actor",
+            "reason": "The character points at the small warm realization"
+          },
+          "keys": [
+            {
+              "t": 0,
+              "y": 253,
+              "angle": 0
+            },
+            {
+              "t": 1,
+              "y": 267,
+              "angle": 0.02
+            },
+            {
+              "t": 2,
+              "y": 253,
+              "angle": -0.005
+            },
+            {
+              "t": 3,
+              "y": 267,
+              "angle": -0.019
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "id": "prop-21",
+          "path": "heart.png",
+          "x": 700,
+          "y": 200,
+          "w": 110,
+          "h": 100,
+          "motion": {
+            "role": "prop",
+            "reason": "A little heart pulses â€” relatable and soft"
+          },
+          "keys": [
+            {
+              "t": 0.2,
+              "alpha": 0
+            },
+            {
+              "t": 0.7,
+              "alpha": 1
+            },
+            {
+              "t": 1.3,
+              "y": 194
+            },
+            {
+              "t": 2,
+              "y": 202
+            },
+            {
+              "t": 3.16,
+              "y": 196
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "time": 0.5,
+      "kind": "tap",
+      "gain": 0.035
+    },
+    {
+      "time": 3.76,
+      "kind": "pop",
+      "gain": 0.03
+    },
+    {
+      "time": 7.02,
+      "kind": "chime",
+      "gain": 0.04
+    }
+  ],
+  "ambience": [
+    {
+      "path": "../../quiet-room.wav",
+      "start": 0,
+      "end": 9.58,
+      "gain": 0.04,
+      "loop": true,
+      "fadeIn": 1,
+      "fadeOut": 2
+    }
+  ]
+}
