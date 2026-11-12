@@ -18,6 +18,8 @@
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; margin-top:22px; }
   .card { background:var(--card); border-radius:14px; overflow:hidden; border:1px solid #262a38; }
   .card video { width:100%; aspect-ratio:16/9; display:block; background:#000; }
+  .card.vert video { aspect-ratio:9/16; }
+  .grid-vert { display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:18px; margin-top:22px; }
   .meta { padding:12px 14px 14px; }
   .code { color:var(--amber); font-weight:800; font-size:.8rem; letter-spacing:1px; }
   .name { font-weight:700; margin:3px 0 5px; font-size:1.02rem; }
@@ -72,6 +74,16 @@
     <div class="card"><video src="videos/retro-tv-b3.mp4" controls playsinline preload="metadata"></video>
       <div class="meta"><div class="code">B3</div><div class="name">Retro TV</div>
       <div class="best">Nostalgic broadcast look, announcements, parodies</div></div></div>
+  </div>
+  <h2>🎬 Made by you · Originals (Remotion)</h2>
+  <p class="sub">Your own stickman videos — vertical format, made in your Remotion studio.</p>
+  <div class="grid grid-vert">
+    <div class="card vert"><video src="videos/stickman-animation-v2.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">ORIGINAL V2</div><div class="name">Stickman Animation V2</div>
+      <div class="best">Your latest self-made explainer (1080×1920)</div></div></div>
+    <div class="card vert"><video src="videos/stickman-test.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">ORIGINAL V1</div><div class="name">Stickman Explainer</div>
+      <div class="best">Your first self-made explainer (1080×1920)</div></div></div>
   </div>
 </section>
 
