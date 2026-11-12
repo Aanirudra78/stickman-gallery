@@ -56,21 +56,27 @@ if (!isScript) {
   let text = "";
   outer: for (const model of ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-flash-latest"]) {
     for (let attempt = 0; attempt < 4; attempt++) {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY },
-        body: JSON.stringify(body),
-        signal: AbortSignal.timeout(120000),
-      });
-      if (res.ok) {
-        const data = await res.json();
+      let data = null, status = 0, netErr = "";
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(180000),
+        });
+        status = res.status;
+        if (res.ok) data = await res.json();
+      } catch (e) {
+        netErr = String(e?.name || e);
+      }
+      if (data) {
         text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
         if (text) break outer;
-      } else if ([429, 500, 503].includes(res.status)) {
-        console.log(`${model} HTTP ${res.status}; waiting 60s before retry...`);
+      } else if (netErr || [429, 500, 502, 503, 504].includes(status)) {
+        console.log(`${model} ${netErr || "HTTP " + status}; waiting 60s before retry...`);
         await new Promise(r => setTimeout(r, 60000));
       } else {
-        console.log(`${model} HTTP ${res.status}; trying next model`);
+        console.log(`${model} HTTP ${status}; trying next model`);
         break;
       }
     }
