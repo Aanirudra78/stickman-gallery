@@ -54,8 +54,8 @@ if (!isScript) {
     generationConfig: { temperature: 0.9 },
   };
   let text = "";
-  outer: for (const model of ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.5-flash", "gemini-flash-latest"]) {
-    for (let attempt = 0; attempt < 3; attempt++) {
+  outer: for (const model of ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-flash-latest"]) {
+    for (let attempt = 0; attempt < 4; attempt++) {
       const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY },
@@ -67,8 +67,8 @@ if (!isScript) {
         text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
         if (text) break outer;
       } else if ([429, 500, 503].includes(res.status)) {
-        console.log(`${model} HTTP ${res.status}; waiting 45s before retry...`);
-        await new Promise(r => setTimeout(r, 45000));
+        console.log(`${model} HTTP ${res.status}; waiting 60s before retry...`);
+        await new Promise(r => setTimeout(r, 60000));
       } else {
         console.log(`${model} HTTP ${res.status}; trying next model`);
         break;
@@ -84,11 +84,27 @@ fs.writeFileSync(path.join(dir, "narration.txt"), script.trim() + "\n", "utf8");
 const sentences = script.replace(/\r/g, "").split(/(?<=[.!?।])\s+/).map(s => s.trim()).filter(Boolean);
 if (!sentences.length) throw new Error("Script has no sentences");
 
-// ---------- 2. TTS (free Gemini voice) ----------
-run("node", [path.join(ROOT, "gemini-tts-local.mjs"),
-  "--text", path.join(dir, "narration.txt"),
-  "--output", path.join(dir, "narration.wav"),
-  "--model", "gemini-3.8-flash-tts", "--voice", "Bodi", "--allow-network"]);
+// ---------- 2. TTS (free Gemini voice, with retry) ----------
+{
+  const ttsArgs = [path.join(ROOT, "gemini-tts-local.mjs"),
+    "--text", path.join(dir, "narration.txt"),
+    "--output", path.join(dir, "narration.wav"),
+    "--model", "gemini-3.8-flash-tts", "--voice", "Bodi", "--allow-network"];
+  let done = false;
+  for (let attempt = 1; attempt <= 4 && !done; attempt++) {
+    try {
+      run("node", ttsArgs);
+      done = true;
+    } catch (e) {
+      if (attempt === 4) throw e;
+      console.log(`TTS attempt ${attempt} failed; cleaning up and waiting 60s...`);
+      for (const f of ["narration.wav", "narration.wav.request.json"]) {
+        try { fs.rmSync(path.join(dir, f), { force: true }); } catch {}
+      }
+      await new Promise(r => setTimeout(r, 60000));
+    }
+  }
+}
 
 // ---------- 3. probe duration ----------
 const ffmpegExe = process.env.FFMPEG || "ffmpeg";

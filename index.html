@@ -81,8 +81,18 @@
       <input id="f-seconds" type="number" min="20" max="90" value="40">
     </div>
   </div>
-  <button class="go" onclick="makeIssue()">🚀 MAKE MY ANIMATION</button>
-  <div class="hint">Opens a pre-filled request on GitHub — tap <b>Create</b>, then wait ~10 min. Your video appears in "Your Videos" below.</div>
+  <button class="go" onclick="makeVideo()">🚀 MAKE MY ANIMATION</button>
+  <div class="hint" id="studio-hint">Renders in ~10 minutes on GitHub's free servers, then appears below automatically.</div>
+  <details style="margin-top:14px">
+    <summary style="color:var(--dim);font-size:.8rem;cursor:pointer;">⚙️ One-time connect (for one-tap renders, no GitHub pages)</summary>
+    <div style="margin-top:10px">
+      <label for="f-pat">GITHUB KEY (fine-grained PAT, Actions: Read &amp; write on stickman-gallery)</label>
+      <input id="f-pat" type="password" placeholder="github_pat_... or ghp_...">
+      <button class="go" style="margin-top:10px;padding:10px;font-size:.9rem" onclick="savePat()">💾 Save key in this browser</button>
+      <div class="hint" id="pat-status"></div>
+      <div class="hint" style="text-align:left">How: github.com → Settings → Developer settings → Personal access tokens → Fine-grained → Generate. Repository access: only <b>stickman-gallery</b>. Permissions: <b>Actions → Read and write</b>. Paste it above and save.</div>
+    </div>
+  </details>
 </section>
 
 <section id="your-videos" style="display:none">
@@ -153,42 +163,129 @@
 </footer>
 
 <script>
-function makeIssue() {
-  const topic = document.getElementById('f-topic').value.trim();
-  const script = document.getElementById('f-script').value.trim();
-  const style = document.getElementById('f-style').value;
-  const voice = document.getElementById('f-voice').value;
-  let seconds = parseInt(document.getElementById('f-seconds').value, 10);
+const REPO = 'Aanirudra78/stickman-gallery';
+const $ = id => document.getElementById(id);
+
+function savePat() {
+  const pat = $('f-pat').value.trim();
+  if (!pat) { $('pat-status').textContent = 'Paste a key first.'; return; }
+  localStorage.setItem('ghpat', pat);
+  $('f-pat').value = '';
+  $('pat-status').textContent = '✅ Connected — one-tap renders enabled in this browser.';
+}
+(function initPat() {
+  if (localStorage.getItem('ghpat')) $('pat-status').textContent = '✅ Connected — one-tap renders enabled.';
+})();
+
+function makeVideo() {
+  const topic = $('f-topic').value.trim();
+  const script = $('f-script').value.trim();
+  const style = $('f-style').value;
+  const voice = $('f-voice').value;
+  let seconds = parseInt($('f-seconds').value, 10);
   if (!Number.isFinite(seconds)) seconds = 40;
   seconds = Math.min(90, Math.max(20, seconds));
   if (!topic && !script) { alert('Type a topic or paste a script first 🙂'); return; }
+
+  const pat = localStorage.getItem('ghpat');
+  if (pat) {
+    // one-tap: trigger the render directly via the GitHub API
+    fetch(`https://api.github.com/repos/${REPO}/actions/workflows/render.yml/dispatches`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + pat },
+      body: JSON.stringify({ ref: 'main', inputs: { topic, script, style, voice, seconds: String(seconds) } })
+    }).then(r => {
+      if (r.status === 204) {
+        localStorage.setItem('pending', JSON.stringify({ at: Date.now(), style, voice }));
+        setStatus('⏳ Render started — your video will appear below automatically (~10 min). Keep this tab open.');
+        pollManifest();
+      } else if (r.status === 401 || r.status === 403) {
+        localStorage.removeItem('ghpat');
+        setStatus('⚠️ Key rejected/expired — re-save it in ⚙️ Connect, or use the fallback below.');
+        openIssue(topic, script, style, voice, seconds);
+      } else {
+        setStatus('⚠️ Could not start (HTTP ' + r.status + '). Using the issue fallback.');
+        openIssue(topic, script, style, voice, seconds);
+      }
+    }).catch(() => { setStatus('⚠️ Network error. Using the issue fallback.'); openIssue(topic, script, style, voice, seconds); });
+  } else {
+    openIssue(topic, script, style, voice, seconds);
+  }
+}
+
+function openIssue(topic, script, style, voice, seconds) {
+  if (!topic && !script) return;
   let body = '';
   if (topic) body += 'topic: ' + topic + '\n';
   if (script) body += 'script: ' + script + '\n';
   body += 'style: ' + style + '\nvoice: ' + voice + '\nseconds: ' + seconds + '\n';
   const title = '[render] ' + (topic || script.replace(/\s+/g, ' ').slice(0, 60));
-  location.href = 'https://github.com/Aanirudra78/stickman-gallery/issues/new?title=' +
+  location.href = 'https://github.com/' + REPO + '/issues/new?title=' +
     encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
 }
 
-fetch('renders/manifest.json', { cache: 'no-store' })
-  .then(r => r.ok ? r.json() : Promise.reject())
-  .then(list => {
-    if (!Array.isArray(list) || !list.length) return Promise.reject();
-    const grid = document.getElementById('your-videos-grid');
-    document.getElementById('your-videos').style.display = 'block';
-    for (const v of list) {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML =
-        '<video src="' + v.file + '" controls playsinline preload="metadata"></video>' +
-        '<div class="meta"><div class="code">' + (v.style || '') + ' · ' + (v.voice || '') + '</div>' +
-        '<div class="name">' + (v.title || 'Rendered video') + '</div>' +
-        '<div class="best">' + (v.date || '') + '</div></div>';
-      grid.appendChild(card);
+function setStatus(text) { $('studio-hint').textContent = text; }
+
+let pollTimer = null;
+async function fetchManifest() {
+  const r = await fetch('renders/manifest.json', { cache: 'no-store' });
+  return r.ok ? r.json() : [];
+}
+
+async function pollManifest() {
+  if (pollTimer) return;
+  const started = JSON.parse(localStorage.getItem('pending') || 'null');
+  if (!started) return;
+  const tick = async () => {
+    const list = await fetchManifest().catch(() => []);
+    const fresh = list.find(v => v.by === 'issue' || !v.seen);
+    if (list.length && (!started.firstLen || list.length !== started.firstLen)) {
+      // a new entry arrived (or entries exist) — take the newest one
+      const v = list[0];
+      const dateMs = Date.parse((v.date || '') + 'T00:00:00Z') || 0;
+      if (dateMs >= started.at - 86400000 * 2) {
+        localStorage.removeItem('pending');
+        clearInterval(pollTimer); pollTimer = null;
+        setStatus('✅ Your video is ready — watch it in "Your Videos" below!');
+        loadVideos([v]);
+        return;
+      }
     }
-  })
+    const mins = Math.round((Date.now() - started.at) / 60000);
+    if (mins > 40) {
+      localStorage.removeItem('pending');
+      clearInterval(pollTimer); pollTimer = null;
+      setStatus('⏰ Still not visible after 40 min — check the site later; the video will show up here.');
+      return;
+    }
+    if (mins >= 1) setStatus(`⏳ Rendering… ${mins} min elapsed. Your video appears below automatically.`);
+  };
+  // snapshot current manifest length to detect the new entry
+  fetchManifest().then(list => { started.firstLen = list.length; localStorage.setItem('pending', JSON.stringify(started)); });
+  tick();
+  pollTimer = setInterval(tick, 25000);
+}
+
+function loadVideos(list) {
+  if (!Array.isArray(list) || !list.length) return;
+  const grid = $('your-videos-grid');
+  $('your-videos').style.display = 'block';
+  for (const v of list) {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML =
+      '<video src="' + v.file + '" controls playsinline preload="metadata"></video>' +
+      '<div class="meta"><div class="code">' + (v.style || '') + ' · ' + (v.voice || '') + '</div>' +
+      '<div class="name">' + (v.title || 'Rendered video') + '</div>' +
+      '<div class="best">' + (v.date || '') + '</div></div>';
+    grid.appendChild(card);
+  }
+}
+
+fetchManifest()
+  .then(list => { if (list.length) loadVideos(list); })
   .catch(() => {});
+if (localStorage.getItem('pending')) { setStatus('⏳ Rendering… your video appears below automatically.'); pollManifest(); }
 </script>
 </body>
 </html>
