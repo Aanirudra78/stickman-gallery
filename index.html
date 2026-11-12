@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stickman Styles — Gallery</title>
+<style>
+  :root { --bg:#12141c; --card:#1b1e2a; --amber:#e8a13c; --text:#eef0f6; --dim:#9aa0b0; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; padding:16px; max-width:1100px; margin:0 auto; }
+  header { text-align:center; padding:28px 0 10px; }
+  h1 { font-size:2rem; letter-spacing:.5px; }
+  h1 span { color:var(--amber); }
+  header p { color:var(--dim); margin-top:8px; font-size:.95rem; }
+  .cta { display:inline-block; margin:16px 0 8px; padding:12px 22px; background:var(--amber); color:#161722;
+         border-radius:999px; text-decoration:none; font-weight:700; font-size:.95rem; }
+  .cta:hover { filter:brightness(1.1); }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; margin-top:22px; }
+  .card { background:var(--card); border-radius:14px; overflow:hidden; border:1px solid #262a38; }
+  .card video { width:100%; aspect-ratio:16/9; display:block; background:#000; }
+  .meta { padding:12px 14px 14px; }
+  .code { color:var(--amber); font-weight:800; font-size:.8rem; letter-spacing:1px; }
+  .name { font-weight:700; margin:3px 0 5px; font-size:1.02rem; }
+  .best { color:var(--dim); font-size:.85rem; line-height:1.45; }
+  footer { text-align:center; color:var(--dim); font-size:.8rem; padding:34px 0 20px; }
+  footer a { color:var(--amber); }
+  section h2 { font-size:1.15rem; margin:30px 0 4px; color:var(--text); }
+  section .sub { color:var(--dim); font-size:.85rem; margin-bottom:6px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>STICKMAN <span>STYLES</span></h1>
+  <p>Tap any demo to watch. Pick a look, then make your own video — free.</p>
+  <a class="cta" href="https://github.com/Aanirudra78/stickman2/actions">🎬 Make your own video</a>
+</header>
+
+<section>
+  <h2>A · Director Mode</h2>
+  <div class="grid">
+    <div class="card"><video src="videos/minimal-line-art-b1.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A1.1</div><div class="name">Minimal Line Art</div>
+      <div class="best">Explaining ideas fast; the cleanest "less is more" look</div></div></div>
+    <div class="card"><video src="videos/classic-black-white.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A1.2</div><div class="name">Classic Black &amp; White</div>
+      <div class="best">Timeless storytelling, silent-film charm, serious topics</div></div></div>
+    <div class="card"><video src="videos/modern-pop.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A2.1</div><div class="name">Modern Pop (Studio Tech)</div>
+      <div class="best">Tech explainers, app/product pitches, upbeat energy</div></div></div>
+    <div class="card"><video src="videos/a2-cinematic-story.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A2.2</div><div class="name">Cinematic Story</div>
+      <div class="best">Emotional story moments, dramatic reveals (red-beanie hero)</div></div></div>
+    <div class="card"><video src="videos/prehistoric-cave.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A3</div><div class="name">Prehistoric Cave</div>
+      <div class="best">Origin stories, "how it all started", primal drama</div></div></div>
+    <div class="card"><video src="videos/cozy-storytelling.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A4</div><div class="name">Cozy Storytelling</div>
+      <div class="best">Warm personal stories, life lessons, comfort content</div></div></div>
+    <div class="card"><video src="videos/historical-cartoon.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A5</div><div class="name">Historical Cartoon</div>
+      <div class="best">History retellings, biographies, period events</div></div></div>
+    <div class="card"><video src="videos/amber-noir.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">A6</div><div class="name">Amber Noir</div>
+      <div class="best">Mystery, crime, night-city drama, detective moods</div></div></div>
+  </div>
+
+  <h2>B · Skill Series</h2>
+  <div class="grid">
+    <div class="card"><video src="videos/colorful-handdrawn-b2.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">B2</div><div class="name">Colorful Hand-Drawn</div>
+      <div class="best">Fun, friendly explainers with warm paper and color</div></div></div>
+    <div class="card"><video src="videos/retro-tv-b3.mp4" controls playsinline preload="metadata"></video>
+      <div class="meta"><div class="code">B3</div><div class="name">Retro TV</div>
+      <div class="best">Nostalgic broadcast look, announcements, parodies</div></div></div>
+  </div>
+</section>
+
+<footer>
+  Videos made with a free local stickman pipeline · <a href="https://github.com/Aanirudra78/stickman2">source</a>
+</footer>
+</body>
+</html>
