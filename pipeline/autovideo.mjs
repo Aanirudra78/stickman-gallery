@@ -4,7 +4,7 @@
 // Usage:
 //   node autovideo.mjs --style "B2" --voice English --seconds 40 [--topic "..."] [--script "..."]
 //   (TOPIC / SCRIPT env vars also accepted — used by the GitHub Action)
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -120,10 +120,21 @@ if (!sentences.length) throw new Error("Script has no sentences");
 // ---------- 3. probe duration ----------
 const ffmpegExe = process.env.FFMPEG || "ffmpeg";
 const ffprobeExe = process.env.FFPROBE || "ffprobe";
-const probe = JSON.parse(execFileSync(ffprobeExe,
-  ["-v", "error", "-show_entries", "format=duration", "-of", "json", path.join(dir, "narration.wav")],
-  { encoding: "utf8" }));
-const voiceDur = Number(probe.format.duration);
+let voiceDur;
+try {
+  const probe = JSON.parse(execFileSync(ffprobeExe,
+    ["-v", "error", "-show_entries", "format=duration", "-of", "json", path.join(dir, "narration.wav")],
+    { encoding: "utf8" }));
+  voiceDur = Number(probe.format.duration);
+} catch {
+  // no ffprobe available (e.g. local Windows) — read duration from ffmpeg's stderr banner
+  const out = spawnSync(ffmpegExe,
+    ["-i", path.join(dir, "narration.wav"), "-f", "null", "-"],
+    { encoding: "utf8", stdio: ["ignore", "ignore", "pipe"] });
+  const m = String(out.stderr).match(/Duration:\s*(\d+):(\d+):([\d.]+)/);
+  if (!m) throw new Error("could not probe narration duration");
+  voiceDur = (+m[1]) * 3600 + (+m[2]) * 60 + (+m[3]);
+}
 const T = +(voiceDur + 0.15 + 0.35).toFixed(2); // voice lead 0.15 + tail 0.35
 console.log(`voice ${voiceDur.toFixed(2)}s -> film T=${T}s`);
 
@@ -205,44 +216,83 @@ if (voiceLang === "hi") {
   }
 }
 
+// pose verb for motion reasons
+const POSE_VERB = { walk: "crosses the stage", wave: "greets with a raised arm",
+  point: "leans in and points at the viewer", hold: "holds up the idea", stand: "acts out the moment" };
+
+// key times quantized DOWN to centiseconds: shot spans are raw float differences
+// (e.g. 18.65-15.11 = 3.5399999999999991), so rounding up past them is invalid.
+const qk = (t) => Math.floor(t * 100) / 100;
+
 shots.forEach((s, i) => {
-  const span = +(s.end - s.start).toFixed(2);
+  const span = s.end - s.start;
   const layers = [];
   const bg = `art/bg-${i}.png`;
   if (fs.existsSync(path.join(dir, bg))) layers.push({ id: `bg-${i}`, type: "image", path: bg, x: 0, y: 0, w: W, h: H });
   if (s.title) {
     layers.push({ type: "text", text: s.title, x: 90, y: 130, size: 60, bold: true,
       color: palette.mono ? "#1a1a1a" : palette.accent,
-      keys: [{ t: 0, alpha: 0 }, { t: Math.min(0.35, span / 3), alpha: 1 }] });
+      keys: [{ t: 0, y: 98, alpha: 0 }, { t: qk(Math.min(0.5, span / 3)), y: 130, alpha: 1 }] });
+    project.sfx.push({ time: qk(s.start + 0.35), kind: "chime", gain: 0.025 });
   }
-  // actor with continuous gentle motion (every <=1.2s) so no 2.5s dead span
-  const bob = [];
-  for (let t = 0; t <= span + 0.001; t += 1.2) {
-    const tt = +Math.min(t, span).toFixed(2);
-    if (bob.length && tt <= bob[bob.length - 1].t) break;
-    bob.push({ t: tt, y: (bob.length % 2 ? 64 : 46) + (tt === span && bob.length % 2 ? -18 : 0), angle: +(0.02 * (bob.length % 2 ? 1 : -1)).toFixed(3) });
+
+  // ----- actor choreography: slide-in entrance, living bob cadence, mid-shot emphasis hop -----
+  const sideX = s.pose === "walk" ? 340 : (i % 2 ? 560 : 700); // alternate sides for variety
+  const fromX = s.pose === "walk" ? 170 : sideX + (i % 2 ? 130 : -130);
+  const settle = Math.min(0.55, span / 3);
+  const cadence = s.pose === "walk" ? 0.9 : 1.1;
+  const bobTimes = [];
+  for (let t = settle + cadence; t <= span + 0.001; t += cadence) {
+    const tt = qk(t);
+    if (!bobTimes.length || tt > bobTimes[bobTimes.length - 1]) bobTimes.push(tt);
   }
-  const actor = { id: `actor-${i}`, type: "image", path: `art/char-${i}.png`,
-    x: s.pose === "walk" ? 340 : 700, y: 55, w: 430, h: 537.5,
-    motion: { role: "actor", reason: `The character acts out "${s.text.slice(0, 60)}" with living hand-drawn body motion` },
-    keys: bob };
-  if (s.pose === "walk") actor.keys = actor.keys.map(k => ({ ...k, x: 340 + (k.t / span) * 420 }));
-  layers.push(actor);
-  // props: pop in, then gentle bob
+  const events = [{ t: 0, p: { x: fromX, alpha: 0 } },
+    { t: qk(settle), p: { x: sideX, y: 55, alpha: 1, w: 430 } }];
+  for (const t of bobTimes) events.push({ t, bob: true });
+  if (span > settle + 1.9) {
+    const hop = (settle + span) / 2;
+    events.push({ t: qk(hop - 0.18), p: { y: 34 } });
+    events.push({ t: qk(hop), p: { y: 102, w: 458 }, tap: true });
+    events.push({ t: qk(hop + 0.28), p: { y: 55, w: 430 } });
+  }
+  if (s.pose === "walk" && span > settle + 0.35) events.push({ t: qk(span), p: { x: 760 } });
+  events.sort((a, b) => a.t - b.t);
+  const K = [];
+  for (const e of events) {
+    if (K.length && e.t <= K[K.length - 1].t) continue;
+    const n = K.length;
+    if (e.bob) {
+      const k = { t: e.t, y: n % 2 ? 78 : 46, angle: +(0.05 * (n % 2 ? 1 : -1)).toFixed(3), w: n % 2 ? 446 : 430, alpha: 1 };
+      if (s.pose === "walk") k.x = +(340 + 420 * (e.t / span)).toFixed(1);
+      K.push(k);
+    } else {
+      K.push({ t: e.t, ...e.p });
+    }
+    if (e.tap) project.sfx.push({ time: qk(s.start + e.t), kind: "tap", gain: 0.03 });
+  }
+  layers.push({ id: `actor-${i}`, type: "image", path: `art/char-${i}.png`,
+    x: sideX, y: 55, w: 430, h: 537.5,
+    motion: { role: "actor", reason: `The character ${POSE_VERB[s.pose] || "acts out the moment"} while narrating "${s.text.slice(0, 50)}"` },
+    keys: K });
+
+  // ----- props: staggered spin-in entrances, then lively bob -----
   s.props.forEach((p, k) => {
     const px = 120 + k * 210, py = 330 + (k % 2) * 60;
     const size = 190;
-    const keys = [{ t: 0, y: py + 26, alpha: 0 }];
-    const appear = Math.min(0.4, span / 3);
-    keys.push({ t: +appear.toFixed(2), y: py, alpha: 1, angle: 0.05 });
-    for (let t = appear + 1.1; t <= span + 0.001; t += 1.2) {
-      const tt = +Math.min(t, span).toFixed(2);
-      keys.push({ t: tt, y: py + (keys.length % 2 ? 12 : -10), angle: +(0.03 * (keys.length % 2 ? -1 : 1)).toFixed(3) });
+    const appear = Math.min(0.4 + k * 0.3, span / 2);
+    const settleP = Math.min(appear + 0.24, span);
+    const PK = [{ t: 0, x: px - 18, y: py + 34, w: 150, alpha: 0, angle: -0.28 },
+      { t: qk(appear), x: px, y: py + 6, w: 202, alpha: 1, angle: 0.05 }];
+    for (let t = settleP; t <= span + 0.001; t += 1.1) {
+      const tt = qk(Math.min(t, span));
+      if (PK[PK.length - 1].t >= tt) break;
+      const n = PK.length;
+      PK.push({ t: tt, y: py + (n % 2 ? 14 : -12), w: 190 + (n % 2 ? 7 : -7), angle: +(0.035 * (n % 2 ? -1 : 1)).toFixed(3) });
     }
     layers.push({ id: `prop-${i}-${k}`, type: "image", path: p, x: px, y: py, w: size, h: size,
-      motion: { role: "prop", reason: `${p.replace("art/prop-", "").replace(/-\d+\.png$/, "")} visual for "${s.text.slice(0, 50)}"` },
-      keys });
-    project.sfx.push({ time: +(s.start + appear).toFixed(2), kind: "pop", gain: 0.03 });
+      motion: { role: "prop", reason: `${p.replace("art/prop-", "").replace(/-\d+\.png$/, "")} prop lands and reacts to "${s.text.slice(0, 40)}"` },
+      keys: PK });
+    project.sfx.push({ time: qk(s.start + appear), kind: "pop", gain: 0.03 });
   });
   project.shots.push({ start: s.start, end: s.end, layers });
 });
