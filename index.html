@@ -83,16 +83,22 @@
   </div>
   <button class="go" onclick="makeVideo()">🚀 MAKE MY ANIMATION</button>
   <div class="hint" id="studio-hint">Renders in ~10 minutes on GitHub's free servers, then appears below automatically.</div>
-  <details style="margin-top:14px">
-    <summary style="color:var(--dim);font-size:.8rem;cursor:pointer;">⚙️ One-time connect (for one-tap renders, no GitHub pages)</summary>
-    <div style="margin-top:10px">
-      <label for="f-pat">GITHUB KEY (fine-grained PAT, Actions: Read &amp; write on stickman-gallery)</label>
-      <input id="f-pat" type="password" placeholder="github_pat_... or ghp_...">
-      <button class="go" style="margin-top:10px;padding:10px;font-size:.9rem" onclick="savePat()">💾 Save key in this browser</button>
-      <div class="hint" id="pat-status"></div>
-      <div class="hint" style="text-align:left">How: github.com → Settings → Developer settings → Personal access tokens → Fine-grained → Generate. Repository access: only <b>stickman-gallery</b>. Permissions: <b>Actions → Read and write</b>. Paste it above and save.</div>
-    </div>
-  </details>
+  <div id="pat-ok" style="display:none;margin-top:14px;background:#182a1c;border:1px solid #2f5e3a;border-radius:12px;padding:12px;color:#7ddc8a;font-size:.9rem;text-align:center">
+    ✅ Connected — renders start with one tap, right from this site.
+  </div>
+  <div id="connect-banner" style="display:none;margin-top:14px;background:#20232e;border:1px dashed #5a5f74;border-radius:12px;padding:16px;text-align:left">
+    <b style="font-size:.95rem">⚡ First time? Connect once (30 seconds) — after that, every video is one tap.</b>
+    <ol style="margin:10px 0 0 20px;padding:0;color:var(--dim);font-size:.85rem;line-height:1.7">
+      <li><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener" style="color:var(--amber);font-weight:700">Open the key page</a> → Token name: anything (e.g. "stickman")</li>
+      <li>Repository access: <b style="color:var(--text)">Only select repositories</b> → pick <b style="color:var(--text)">stickman-gallery</b></li>
+      <li>Permissions → Repository → <b style="color:var(--text)">Actions: Read and write</b> → Generate → copy the key</li>
+      <li>Paste it below → 💾 Save:</li>
+    </ol>
+    <label for="f-pat" style="display:block;font-size:.8rem;color:var(--dim);margin:12px 0 5px">GITHUB KEY</label>
+    <input id="f-pat" type="password" placeholder="github_pat_...">
+    <button class="go" style="margin-top:10px;padding:10px;font-size:.9rem" onclick="savePat()">💾 Save key in this browser</button>
+    <div class="hint" id="pat-status" style="text-align:left"></div>
+  </div>
 </section>
 
 <section id="your-videos" style="display:none">
@@ -166,15 +172,55 @@
 const REPO = 'Aanirudra78/stickman-gallery';
 const $ = id => document.getElementById(id);
 
-function savePat() {
-  const pat = $('f-pat').value.trim();
-  if (!pat) { $('pat-status').textContent = 'Paste a key first.'; return; }
-  localStorage.setItem('ghpat', pat);
-  $('f-pat').value = '';
-  $('pat-status').textContent = '✅ Connected — one-tap renders enabled in this browser.';
+function showConnect(msg) {
+  $('connect-banner').style.display = 'block';
+  $('pat-ok').style.display = 'none';
+  if (msg) $('pat-status').textContent = msg;
 }
-(function initPat() {
-  if (localStorage.getItem('ghpat')) $('pat-status').textContent = '✅ Connected — one-tap renders enabled.';
+function showConnected() {
+  $('connect-banner').style.display = 'none';
+  $('pat-ok').style.display = 'block';
+}
+
+// validate a key against the Actions API (needs Actions: Read & write on the repo)
+async function validatePat(pat) {
+  try {
+    const r = await fetch(`https://api.github.com/repos/${REPO}/actions/workflows/render.yml`, {
+      headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + pat }
+    });
+    return r.status;
+  } catch { return 0; }
+}
+
+async function savePat() {
+  const pat = $('f-pat').value.trim();
+  if (!pat) { $('pat-status').textContent = 'Paste the key first.'; return; }
+  $('pat-status').textContent = 'Checking key…';
+  const status = await validatePat(pat);
+  if (status === 200) {
+    localStorage.setItem('ghpat', pat);
+    $('f-pat').value = '';
+    showConnected();
+  } else if (status === 401) {
+    $('pat-status').textContent = '❌ Key is invalid or expired — copy it again from GitHub (make sure you copied the whole key).';
+  } else if (status === 403) {
+    $('pat-status').textContent = '❌ Key is valid but missing Actions permission — while creating it, set Permissions → Repository → Actions: Read and write.';
+  } else {
+    $('pat-status').textContent = '❌ Could not check the key (network hiccup) — try again.';
+  }
+}
+
+(async function checkSavedPat() {
+  const pat = localStorage.getItem('ghpat');
+  if (!pat) { showConnect(); return; }
+  const status = await validatePat(pat);
+  if (status === 200) showConnected();
+  else {
+    localStorage.removeItem('ghpat');
+    showConnect(status === 403
+      ? 'Saved key lost its Actions permission — create a new one below.'
+      : status === 401 ? 'Saved key expired — create a new one below.' : '');
+  }
 })();
 
 function makeVideo() {
@@ -188,40 +234,29 @@ function makeVideo() {
   if (!topic && !script) { alert('Type a topic or paste a script first 🙂'); return; }
 
   const pat = localStorage.getItem('ghpat');
-  if (pat) {
-    // one-tap: trigger the render directly via the GitHub API
-    fetch(`https://api.github.com/repos/${REPO}/actions/workflows/render.yml/dispatches`, {
-      method: 'POST',
-      headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + pat },
-      body: JSON.stringify({ ref: 'main', inputs: { topic, script, style, voice, seconds: String(seconds) } })
-    }).then(r => {
-      if (r.status === 204) {
-        localStorage.setItem('pending', JSON.stringify({ at: Date.now(), style, voice }));
-        setStatus('⏳ Render started — your video will appear below automatically (~10 min). Keep this tab open.');
-        pollManifest();
-      } else if (r.status === 401 || r.status === 403) {
-        localStorage.removeItem('ghpat');
-        setStatus('⚠️ Key rejected/expired — re-save it in ⚙️ Connect, or use the fallback below.');
-        openIssue(topic, script, style, voice, seconds);
-      } else {
-        setStatus('⚠️ Could not start (HTTP ' + r.status + '). Using the issue fallback.');
-        openIssue(topic, script, style, voice, seconds);
-      }
-    }).catch(() => { setStatus('⚠️ Network error. Using the issue fallback.'); openIssue(topic, script, style, voice, seconds); });
-  } else {
-    openIssue(topic, script, style, voice, seconds);
+  if (!pat) {
+    showConnect('⬆️ Do the one-time connect above (30 seconds), then tap 🚀 MAKE MY ANIMATION again.');
+    $('connect-banner').scrollIntoView({ behavior: 'smooth' });
+    return;
   }
-}
 
-function openIssue(topic, script, style, voice, seconds) {
-  if (!topic && !script) return;
-  let body = '';
-  if (topic) body += 'topic: ' + topic + '\n';
-  if (script) body += 'script: ' + script + '\n';
-  body += 'style: ' + style + '\nvoice: ' + voice + '\nseconds: ' + seconds + '\n';
-  const title = '[render] ' + (topic || script.replace(/\s+/g, ' ').slice(0, 60));
-  location.href = 'https://github.com/' + REPO + '/issues/new?title=' +
-    encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+  setStatus('⏳ Starting render…');
+  fetch(`https://api.github.com/repos/${REPO}/actions/workflows/render.yml/dispatches`, {
+    method: 'POST',
+    headers: { 'Accept': 'application/vnd.github+json', 'Authorization': 'Bearer ' + pat },
+    body: JSON.stringify({ ref: 'main', inputs: { topic, script, style, voice, seconds: String(seconds) } })
+  }).then(r => {
+    if (r.status === 204) {
+      localStorage.setItem('pending', JSON.stringify({ at: Date.now(), style, voice }));
+      setStatus('🎬 Render started! Your video appears below automatically (~10 min). Keep this tab open.');
+      pollManifest();
+    } else if (r.status === 401 || r.status === 403) {
+      localStorage.removeItem('ghpat');
+      showConnect('Key was rejected (' + r.status + ') — create a fresh key with Actions: Read and write, save it, then tap 🚀 again.');
+    } else {
+      setStatus('⚠️ Could not start (HTTP ' + r.status + ') — try again in a minute.');
+    }
+  }).catch(() => setStatus('⚠️ Network error — try again.'));
 }
 
 function setStatus(text) { $('studio-hint').textContent = text; }
