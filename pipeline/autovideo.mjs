@@ -243,7 +243,7 @@ shots.forEach((s, i) => {
   const cadence = s.pose === "walk" ? 0.9 : 1.1;
   const bobTimes = [];
   for (let t = settle + cadence; t <= span + 0.001; t += cadence) {
-    const tt = qk(t);
+    const tt = qk(Math.min(t, span));
     if (!bobTimes.length || tt > bobTimes[bobTimes.length - 1]) bobTimes.push(tt);
   }
   const events = [{ t: 0, p: { x: fromX, alpha: 0 } },
