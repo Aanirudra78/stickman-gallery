@@ -180,7 +180,7 @@ let seedCounter = 100;
 shots.forEach((s, i) => {
   const shotWords = s.text.split(/\s+/).filter(w => !/^[.!?।,;:]+$/.test(w));
   const pose = choosePose(shotWords, i);
-  const props = chooseProps(shotWords, i + 7, i % 2 ? 2 : 1);
+  const props = chooseProps(shotWords, i + 7, 2 + (i % 2));
   drawCharacter(dir, `art/char-${i}.png`, pose, palette.costume, (seedCounter += 13));
   s.pose = pose;
   s.props = props.map((p, k) => {
@@ -218,7 +218,9 @@ if (voiceLang === "hi") {
 
 // pose verb for motion reasons
 const POSE_VERB = { walk: "crosses the stage", wave: "greets with a raised arm",
-  point: "leans in and points at the viewer", hold: "holds up the idea", stand: "acts out the moment" };
+  point: "leans in and points at the viewer", hold: "holds up the idea", stand: "acts out the moment",
+  think: "ponders with a hand on the chin", celebrate: "throws both arms up in celebration",
+  jump: "bounces up with excitement", carry: "shoulders the weight of the idea" };
 
 // key times quantized DOWN to centiseconds: shot spans are raw float differences
 // (e.g. 18.65-15.11 = 3.5399999999999991), so rounding up past them is invalid.
@@ -237,7 +239,8 @@ shots.forEach((s, i) => {
   }
 
   // ----- actor choreography: slide-in entrance, living bob cadence, mid-shot emphasis hop -----
-  const sideX = s.pose === "walk" ? 340 : (i % 2 ? 560 : 700); // alternate sides for variety
+  const threeProps = s.props.length > 2;
+  const sideX = s.pose === "walk" ? 340 : (threeProps ? 720 : (i % 2 ? 560 : 700)); // alternate sides for variety; stay right when 3 props fill the left
   const fromX = s.pose === "walk" ? 170 : sideX + (i % 2 ? 130 : -130);
   const settle = Math.min(0.55, span / 3);
   const cadence = s.pose === "walk" ? 0.9 : 1.1;
@@ -277,17 +280,17 @@ shots.forEach((s, i) => {
 
   // ----- props: staggered spin-in entrances, then lively bob -----
   s.props.forEach((p, k) => {
-    const px = 120 + k * 210, py = 330 + (k % 2) * 60;
-    const size = 190;
+    const px = (threeProps ? 105 : 120) + k * (threeProps ? 195 : 210), py = 330 + (k % 2) * 60;
+    const size = threeProps ? 178 : 190;
     const appear = Math.min(0.4 + k * 0.3, span / 2);
     const settleP = Math.min(appear + 0.24, span);
-    const PK = [{ t: 0, x: px - 18, y: py + 34, w: 150, alpha: 0, angle: -0.28 },
-      { t: qk(appear), x: px, y: py + 6, w: 202, alpha: 1, angle: 0.05 }];
+    const PK = [{ t: 0, x: px - 18, y: py + 34, w: +(size * 0.79).toFixed(1), alpha: 0, angle: -0.28 },
+      { t: qk(appear), x: px, y: py + 6, w: +(size * 1.06).toFixed(1), alpha: 1, angle: 0.05 }];
     for (let t = settleP; t <= span + 0.001; t += 1.1) {
       const tt = qk(Math.min(t, span));
       if (PK[PK.length - 1].t >= tt) break;
       const n = PK.length;
-      PK.push({ t: tt, y: py + (n % 2 ? 14 : -12), w: 190 + (n % 2 ? 7 : -7), angle: +(0.035 * (n % 2 ? -1 : 1)).toFixed(3) });
+      PK.push({ t: tt, y: py + (n % 2 ? 14 : -12), w: +(size * (1 + 0.037 * (n % 2 ? 1 : -1))).toFixed(1), angle: +(0.035 * (n % 2 ? -1 : 1)).toFixed(3) });
     }
     layers.push({ id: `prop-${i}-${k}`, type: "image", path: p, x: px, y: py, w: size, h: size,
       motion: { role: "prop", reason: `${p.replace("art/prop-", "").replace(/-\d+\.png$/, "")} prop lands and reacts to "${s.text.slice(0, 40)}"` },
