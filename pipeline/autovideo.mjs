@@ -54,15 +54,17 @@ if (!isScript) {
     generationConfig: { temperature: 0.9 },
   };
   let text = "";
-  outer: for (const model of ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-flash-latest"]) {
-    for (let attempt = 0; attempt < 4; attempt++) {
+  const MODELS = ["gemini-3.8-flash", "gemini-3.7-flash", "gemini-3.6-flash", "gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-2.5-flash-lite", "gemini-flash-latest"];
+  const t0 = Date.now();
+  outer: for (let round = 0; round < 8; round++) {
+    for (const model of MODELS) {
       let data = null, status = 0, netErr = "";
       try {
         const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
           method: "POST",
           headers: { "Content-Type": "application/json", "x-goog-api-key": GEMINI_KEY },
           body: JSON.stringify(body),
-          signal: AbortSignal.timeout(180000),
+          signal: AbortSignal.timeout(90000),
         });
         status = res.status;
         if (res.ok) data = await res.json();
@@ -71,15 +73,18 @@ if (!isScript) {
       }
       if (data) {
         text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
-        if (text) break outer;
+        if (text) {
+          console.log(`script generated via ${model} after ${Math.round((Date.now() - t0) / 1000)}s`);
+          break outer;
+        }
       } else if (netErr || [429, 500, 502, 503, 504].includes(status)) {
-        console.log(`${model} ${netErr || "HTTP " + status}; waiting 60s before retry...`);
-        await new Promise(r => setTimeout(r, 60000));
+        console.log(`${model} ${netErr || "HTTP " + status}; trying next model immediately`);
       } else {
         console.log(`${model} HTTP ${status}; trying next model`);
-        break;
       }
     }
+    console.log(`round ${round}: all models busy; waiting 15s...`);
+    await new Promise(r => setTimeout(r, 15000));
   }
   if (!text) throw new Error("Gemini script generation failed after retries");
   script = text;
@@ -103,11 +108,11 @@ if (!sentences.length) throw new Error("Script has no sentences");
       done = true;
     } catch (e) {
       if (attempt === 4) throw e;
-      console.log(`TTS attempt ${attempt} failed; cleaning up and waiting 60s...`);
+      console.log(`TTS attempt ${attempt} failed; cleaning up and waiting 20s...`);
       for (const f of ["narration.wav", "narration.wav.request.json"]) {
         try { fs.rmSync(path.join(dir, f), { force: true }); } catch {}
       }
-      await new Promise(r => setTimeout(r, 60000));
+      await new Promise(r => setTimeout(r, 20000));
     }
   }
 }

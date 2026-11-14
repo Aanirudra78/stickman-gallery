@@ -45,7 +45,7 @@ try {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify(body),
-      signal: AbortSignal.timeout(180000),
+      signal: AbortSignal.timeout(90000),
     }
   );
   if (!res.ok) throw new Error(`Provider HTTP ${res.status}; response body deliberately omitted`);
